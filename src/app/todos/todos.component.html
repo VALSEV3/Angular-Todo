@@ -1,0 +1,28 @@
+
+<div class="container-sm border mt-3 pb-3" style="max-width: 900px">
+  <div class="input-group mt-3 mb-5 col">
+    <label class="control-label mb-1 fs-4" for="add-todo">Add your todo</label>
+    <div class="input-group">
+      <input id="add-todo" [(ngModel)]="inputValue" (keyup.enter)="onAddClick()"  type="text" class="form-control" placeholder="Add todo"
+             aria-label="Recipient's username" aria-describedby="button-addon2">
+      <button  (click)="onAddClick()"  class="btn btn-outline-secondary" type="button" id="button-addon2">Add</button>
+    </div>
+  </div>
+  <button (click)="deleteAll()" class="btn btn-danger mb-3 m-1">Delete all</button>
+
+  <ul class="list-group">
+    <li *ngFor="let todo of todos;let i = index" class="list-group-item d-flex justify-content-between">
+      <div class="w-75">
+        <input  class="form-check-input me-1" type="checkbox" [(ngModel)]="todo.completed" [id]="i">
+        <input class="readonly"  #editingInput style="width:90%" [ngClass]="{readonly:todo.isEditing}" class="border border-0 " [style]="'user-select:none !important'" [readOnly]="!todo.isEditing" [value]="todo.description"  (keyup.escape)="cancel(i);" >
+      </div>
+      <div *ngIf="!todo.isEditing">
+        <i (click)="onEdit(i); editingInput.focus()" class="bi bi-pen d-inline-block me-3"></i>
+        <i class="bi bi-trash" (click)="onDeleteClick(i)"></i>
+      </div>
+      <div *ngIf="todo.isEditing">
+        <i  (click)="onSave(i,editingInput.value)" class="bi bi-floppy me-3"></i>
+        <i (click)="cancel(i)" class="bi bi-x-square-fill"></i>
+      </div>
+  </ul>
+</div>

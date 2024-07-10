@@ -1,0 +1,8 @@
+.editing{
+  outline:none;
+  user-select: none;
+}
+
+i:hover{
+  opacity: 0.4;
+}
